@@ -9,4 +9,7 @@
 </script>
 
 <style scoped>
+.html {
+  background: #E7E5DF;
+}
 </style>
