@@ -14,7 +14,7 @@
       </nav> -->
 
       <div>
-        <NuxtLink to="/auth" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+        <NuxtLink to="/auth" class="bg-primary-mid text-white py-2 px-4 rounded hover:bg-primary-dark">
           Connexion / Inscription
         </NuxtLink>
       </div>
@@ -27,6 +27,7 @@
 
 <style scoped>
 header {
-  background:#3A405A;
+  background: #FFF;
+  border-bottom: 1px solid #D7DBE7;
 }
 </style>
