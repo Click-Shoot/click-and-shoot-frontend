@@ -1,7 +1,6 @@
 <template>
   <div>
     <NuxtPage />
-    <p>tt</p>
   </div>
 </template>
 
