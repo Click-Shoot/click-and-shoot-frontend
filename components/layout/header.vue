@@ -3,21 +3,15 @@
   <nav class="flex items-center justify-between p-4 bg-white shadow-md">
     <div class="flex items-center space-x-4">
       <!-- <img src="/logo.png" alt="OpenDoor Logo" class="h-8 w-auto" /> -->
+      <h2>LOGO</h2>
+    </div>
+    <div class="flex items-center space-x-4">
       <ul class="flex items-center space-x-4">
         <li>
-          <a href="/" class="text-gray-700 hover:text-primary-mid">Home</a>
+          <a href="/" class="text-gray-700 hover:text-primary-mid">Accueil</a>
         </li>
         <li>
-          <a href="#" class="text-gray-700 hover:text-primary-mid">My Property</a>
-        </li>
-        <li>
-          <a href="#" class="text-gray-700 hover:text-primary-mid">Request</a>
-        </li>
-        <li>
-          <a href="#" class="text-gray-700 hover:text-primary-mid">Contract</a>
-        </li>
-        <li>
-          <a href="#" class="text-gray-700 hover:text-primary-mid">About Us</a>
+          <a href="#" class="text-gray-700 hover:text-primary-mid">Contact</a>
         </li>
       </ul>
     </div>

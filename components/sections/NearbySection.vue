@@ -1,7 +1,6 @@
-<!-- components/NearbySection.vue -->
 <template>
   <div class="p-4">
-    <h2 class="text-xl font-bold mb-4">Nearby You</h2>
+    <h2 class="text-xl font-bold mb-4">Proche de vous</h2>
     <div class="flex space-x-4 mb-4">
       <Dropdown class="w-1/3" placeholder="Price: High to Low" />
       <Dropdown class="w-1/3" placeholder="Distance: 2km" />
