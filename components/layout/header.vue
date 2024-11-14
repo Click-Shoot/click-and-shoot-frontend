@@ -1,33 +1,37 @@
+<!-- components/Navbar.vue -->
 <template>
-  <header class="shadow-md">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center">
-        <img src="" alt="Logo" class="h-10 w-auto" />
-        <span class="ml-3 text-xl font-semibold text-gray-700">Click and Shoot</span>
-      </div>
-
-      <!-- <nav class="hidden md:flex space-x-8 text-gray-600">
-        <NuxtLink to="/" class="hover:text-blue-500">Home</NuxtLink>
-        <NuxtLink to="/about" class="hover:text-blue-500">About</NuxtLink>
-        <NuxtLink to="/gallery" class="hover:text-blue-500">Gallery</NuxtLink>
-        <NuxtLink to="/contact" class="hover:text-blue-500">Contact</NuxtLink>
-      </nav> -->
-
-      <div>
-        <NuxtLink to="/auth" class="bg-primary-mid text-white py-2 px-4 rounded hover:bg-primary-dark">
-          Connexion / Inscription
-        </NuxtLink>
-      </div>
+  <nav class="flex items-center justify-between p-4 bg-white shadow-md">
+    <div class="flex items-center space-x-4">
+      <!-- <img src="/logo.png" alt="OpenDoor Logo" class="h-8 w-auto" /> -->
+      <ul class="flex items-center space-x-4">
+        <li>
+          <a href="/" class="text-gray-700 hover:text-primary-mid">Home</a>
+        </li>
+        <li>
+          <a href="#" class="text-gray-700 hover:text-primary-mid">My Property</a>
+        </li>
+        <li>
+          <a href="#" class="text-gray-700 hover:text-primary-mid">Request</a>
+        </li>
+        <li>
+          <a href="#" class="text-gray-700 hover:text-primary-mid">Contract</a>
+        </li>
+        <li>
+          <a href="#" class="text-gray-700 hover:text-primary-mid">About Us</a>
+        </li>
+      </ul>
     </div>
-  </header>
+    <div class="flex items-center space-x-4">
+      <button class="text-primary-mid">Setting</button>
+      <button class="text-primary-mid">Logout</button>
+    </div>
+  </nav>
 </template>
 
 <script setup lang="ts">
+// Pas de logique spécifique nécessaire pour le moment
 </script>
 
 <style scoped>
-header {
-  background: #FFF;
-  border-bottom: 1px solid #D7DBE7;
-}
+/* Ajoutez des styles spécifiques au besoin */
 </style>

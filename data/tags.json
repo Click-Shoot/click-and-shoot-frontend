@@ -2,57 +2,51 @@
   {
     "id": 1,
     "name": "Électronique",
-    "image": "mariage-cat.jpg",
-    "inventoryStatus": "Disponible",
-    "price": 299
+    "image": "mariage-cat.jpg"
   },
   {
     "id": 2,
     "name": "Vêtements",
-    "image": "1.jpg",
-    "inventoryStatus": "En rupture",
-    "price": 59
+    "image": "1.jpg"
   },
   {
     "id": 3,
     "name": "Livres",
-    "image": "2.jpg",
-    "inventoryStatus": "Disponible",
-    "price": 19
+    "image": "2.jpg"
   },
   {
     "id": 4,
     "name": "Meubles",
-    "image": "3.jpg",
-    "inventoryStatus": "Disponible",
-    "price": 499
+    "image": "3.jpg"
   },
   {
     "id": 5,
     "name": "ajjsjsq",
-    "image": "4.jpg",
-    "inventoryStatus": "En rupture",
-    "price": 59
+    "image": "4.jpg"
   },
   {
     "id": 6,
     "name": "bjsknsjs",
-    "image": "mariage-cat.jpg",
-    "inventoryStatus": "Disponible",
-    "price": 19
+    "image": "mariage-cat.jpg"
   },
   {
     "id": 7,
     "name": "csnskjs",
-    "image": "5.jpg",
-    "inventoryStatus": "En rupture",
-    "price": 59
+    "image": "5.jpg"
   },
   {
     "id": 8,
     "name": "diohsoish",
-    "image": "mariage-cat.jpg",
-    "inventoryStatus": "Disponible",
-    "price": 19
+    "image": "2.jpg"
+  },
+  {
+    "id": 9,
+    "name": "diohsoish",
+    "image": "3.jpg"
+  },
+  {
+    "id": 10,
+    "name": "diohsoish",
+    "image": "1.jpg"
   }
 ]

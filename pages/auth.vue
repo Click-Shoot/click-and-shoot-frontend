@@ -4,14 +4,14 @@
       <!-- Tabs Login/Signup -->
       <div class="flex justify-between mb-6">
         <button 
-          :class="tab === 'login' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-500'"
+          :class="tab === 'login' ? 'text-primary-mid border-b-2 border-primary-mid' : 'text-gray-500'"
           @click="tab = 'login'"
           class="px-4 py-2 font-semibold"
         >
           Login
         </button>
         <button 
-          :class="tab === 'signup' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-500'"
+          :class="tab === 'signup' ? 'text-primary-mid border-b-2 border-primary-mid' : 'text-gray-500'"
           @click="tab = 'signup'"
           class="px-4 py-2 font-semibold"
         >
@@ -32,7 +32,7 @@
             <input v-model="loginData.password" type="password" id="password" class="mt-1 p-2 w-full border rounded-md" required />
           </div>
 
-          <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded w-full">Login</button>
+          <button type="submit" class="bg-primary-mid text-white py-2 px-4 rounded w-full">Login</button>
         </form>
       </div>
 

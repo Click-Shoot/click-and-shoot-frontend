@@ -5,8 +5,8 @@ export default <Partial<Config>>{
         extend: {
             colors: {
                 primary: {
-                    mid: "#AEC5EB",
-                    dark: "#6b89bd"
+                    mid: "#94b7f1",
+                    dark: "#6f87ad"
                 },
                 button: {
                   primary: {
