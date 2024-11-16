@@ -9,10 +9,27 @@ const apiClient: AxiosInstance = axios.create({
     },
 });
 
+apiClient.interceptors.request.use(
+    (config) => {
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzM4OGJhNTllYjViODZjM2ViMmYzNjkiLCJlbWFpbCI6ImpqQHRlc3QuY29tIiwiZXhwIjoxNzMxNzcyMjkxfQ.XpzCdnBIoKU3F6ZbgpjkLoga8XNVNrRhpS-8DgFd0Ug'
+        // localStorage.getItem('token');
+
+        if (token && config.headers) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
 // API Service class
 class ApiService {
     async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+        console.log('ddd')
         const response = await apiClient.get<T>(url, config);
+        console.log('out')
         return response.data;
     }
 
