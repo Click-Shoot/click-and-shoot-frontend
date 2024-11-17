@@ -65,7 +65,6 @@ const currentIndex = ref(0);
 const numVisible = 5;
 
 const maxIndex = computed(() => Math.ceil(categories.length / numVisible) - 1);
-console.log(Math.ceil(categories.length / numVisible));
 const isFirstVisible = computed(() => currentIndex.value === 0);
 const isLastVisible = computed(() => currentIndex.value >= maxIndex.value);
 
@@ -76,7 +75,6 @@ const prev = () => {
 };
 
 const next = () => {
-  console.log(currentIndex.value, maxIndex.value);
   if (currentIndex.value < maxIndex.value) {
     currentIndex.value += 1;
   }
