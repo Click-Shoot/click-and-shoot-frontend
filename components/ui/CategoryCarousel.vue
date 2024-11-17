@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount} from 'vue';
+import { ref, computed } from 'vue';
 import categoriesData from '@/data/tags.json';
 
 interface Category {
@@ -57,9 +57,7 @@ interface Category {
   image: string;
 }
 
-
 const categories: Category[] = categoriesData;
-
 
 const currentIndex = ref(0);
 const numVisible = 5;
@@ -82,7 +80,4 @@ const next = () => {
 </script>
 
 <style scoped>
-.material-icons {
-  font-size: 24px;
-}
 </style>

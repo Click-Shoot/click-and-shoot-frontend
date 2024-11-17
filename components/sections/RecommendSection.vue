@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, defineProps, onMounted} from 'vue';
+import {ref, onMounted} from 'vue';
 import apiService from '@/services/apiService';
 import PhotographCard from "~/components/ui/PhotographCard.vue";
 
