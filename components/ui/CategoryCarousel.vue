@@ -19,16 +19,16 @@
           <div
             v-for="(category, index) in categories"
             :key="index"
-            class="flex-shrink-0 w-1/5 p-2"
+            class="flex-shrink-0 w-1/5 p-2 cursor-pointer"
           >
-            <div class="relative rounded-lg overflow-hidden shadow-md">
+            <div class="relative rounded-lg overflow-hidden shadow-md" @click="goToCategory(index)">
               <img
-                :src="'/assets/' + category.image"
-                :alt="category.name"
+                :src="category.image"
+                :alt="category.label"
                 class="w-full h-40 object-cover"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4">
-                <span class="text-white font-bold">{{ category.name }}</span>
+                <span class="text-white font-bold">{{ category.label }}</span>
               </div>
             </div>
           </div>
@@ -48,23 +48,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import categoriesData from '@/data/tags.json';
+import { ref, computed, onMounted } from 'vue';
+import { type Tag } from '@/stores/tags';
+import { useTagsStore } from '@/stores/tags';
 
-interface Category {
-  id: number;
-  name: string;
-  image: string;
-}
+const tagsStore = useTagsStore();
 
-const categories: Category[] = categoriesData;
+const router = useRouter(); 
 
+const categories = ref<Tag[]>([]);
 const currentIndex = ref(0);
 const numVisible = 5;
 
-const maxIndex = computed(() => Math.ceil(categories.length / numVisible) - 1);
+const maxIndex = computed(() => Math.ceil(categories.value.length / numVisible) - 1);
 const isFirstVisible = computed(() => currentIndex.value === 0);
 const isLastVisible = computed(() => currentIndex.value >= maxIndex.value);
+
+onMounted(async () => {
+  await tagsStore.fetchTags();
+  categories.value = tagsStore.getTags();
+});
 
 const prev = () => {
   if (currentIndex.value > 0) {
@@ -76,6 +79,11 @@ const next = () => {
   if (currentIndex.value < maxIndex.value) {
     currentIndex.value += 1;
   }
+};
+
+const goToCategory = (index: number) => {
+  const categoryId = categories.value[index]._id;
+  router.push(`/categorie/${categoryId}`);
 };
 </script>
 
