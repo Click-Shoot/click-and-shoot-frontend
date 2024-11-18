@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto p-4 space-y-8">
+  <div class="container mx-auto p-4 space-y-8 mt-8">
     <AnnonceBanner />
     <CategoryCarousel />
     <RecommendSection />
