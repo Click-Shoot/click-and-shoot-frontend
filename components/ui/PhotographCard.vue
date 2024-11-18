@@ -8,9 +8,9 @@
     </div>
     <div class="text-lg font-semibold">{{ photograph.firstName }} {{ photograph.lastName }}</div>
     <p class="text-sm text-gray-500 flex-grow">{{ photograph.description }}</p>
-    <div class="mt-auto flex justify-between items-center">
+    <div class="mt-2 flex justify-between items-center">
       <div>
-        <p class="text-primary-mid font-bold">$200.25</p>
+        <p class="text-primary-mid font-bold">{{ photograph.price.toFixed(2) }}€/h</p>
       </div>
       <button @click="goToUser(photograph._id)" class="bg-primary-mid text-white px-3 py-1 rounded hover:bg-primary-dark">Voir</button>
     </div>
