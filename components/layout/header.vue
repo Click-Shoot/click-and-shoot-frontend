@@ -34,7 +34,7 @@
       </ul>
     </div>
     <div class="flex items-center space-x-4">
-      <button class="text-primary-mid">Login</button>
+      <NuxtLink to="auth" class="text-gray-700 text-white p-1 px-4 bg-primary-mid rounded hover:bg-primary-dark">Login</NuxtLink>
     </div>
   </nav>
 </template>
