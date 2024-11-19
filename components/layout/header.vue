@@ -34,7 +34,25 @@
       </ul>
     </div>
     <div class="flex items-center space-x-4">
-      <NuxtLink to="auth" class="text-gray-700 text-white p-1 px-4 bg-primary-mid rounded hover:bg-primary-dark">Login</NuxtLink>
+      <NuxtLink 
+      v-if="user" 
+      :to="'/'" 
+      class="text-gray-700 text-white p-1 px-4 bg-primary-mid rounded hover:bg-primary-dark">
+      {{ user.firstName }} {{ user.lastName }}
+    </NuxtLink>
+    <NuxtLink 
+    v-if="user"
+    :to="'/auth'" 
+    class="text-gray-700 text-white p-1 px-4 bg-primary-mid rounded hover:bg-primary-dark"
+    @click="handleLogout">
+    Logout
+  </NuxtLink>
+  <NuxtLink 
+    v-if="!user"
+    :to="'/auth'" 
+    class="text-gray-700 text-white p-1 px-4 bg-primary-mid rounded hover:bg-primary-dark">
+    Login
+  </NuxtLink>
     </div>
   </nav>
 </template>
@@ -43,11 +61,16 @@
 import { useCookie } from 'nuxt/app';
 import { ref, computed, onMounted } from 'vue';
 import { useTagsStore } from '@/stores/tags'; 
+import { useAuthStore } from '@/stores/auth';
+import { useRouter } from 'vue-router';
+
+const authStore = useAuthStore();
+
 
 const showDropdown = ref(false);
 const tags = ref<Tag[]>([]);
 const tagsStore = useTagsStore();
-
+const router = useRouter();
 onMounted(async () => {
   await tagsStore.fetchTags();
   tags.value = tagsStore.getTags(); 
@@ -55,20 +78,39 @@ onMounted(async () => {
 
 const leftTags = computed(() => tags.value.slice(0, 5));
 const rightTags = computed(() => tags.value.slice(5, 10));
+// const firstName = ref('')
+// const lastName = ref('')
+const user = computed(() => authStore.user);
+// const tokenCookie = useCookie('auth_token');
+// console.log(tokenCookie.value)
+// const userCookie = useCookie('auth_user');
 
-
-const tokenCookie = useCookie('auth_token');
-const userCookie = useCookie('auth_user');
-console.log("TOKEN : " + tokenCookie.value);
-console.log("USER : " + JSON.stringify(userCookie.value));
+// if (userCookie.value) {
+//     const user = JSON.stringify(userCookie.value)
+//     const userParsed = JSON.parse(user)
+//     if (userParsed && userParsed.firstName && userParsed.lastName) {
+//       firstName.value = userParsed.firstName
+//       lastName.value = userParsed.lastName
+//     }
+//   }
+// const buttonText = ref('Login')
+// if(firstName.value !== null && lastName.value !== null) {
+//   buttonText.value = `${firstName.value} ${lastName.value}`
+// }
+authStore.loadAuthFromCookies();
 
 const handleLogout = () => {
-  tokenCookie.value = null;
-  userCookie.value = null;
-  if (tokenCookie.value === null && userCookie.value === null) {
-    console.log('Utilisateur déconnecté');
-}
+  authStore.clearAuth();
+  router.push('/auth');
 };
+
+// const handleLogout = () => {
+//   tokenCookie.value = null;
+//   userCookie.value = null;
+//   if (tokenCookie.value === null && userCookie.value === null) {
+//     console.log('Utilisateur déconnecté');
+// }
+// };
 </script>
 
 <style scoped>

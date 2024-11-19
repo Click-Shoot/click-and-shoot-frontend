@@ -1,8 +1,12 @@
+import { useAuthStore } from "~/stores/auth";
+
 export default defineNuxtRouteMiddleware((to, from) => {
   // Vérifie que le code est exécuté côté client
+  const useStore = useAuthStore();
   if (process.client) {
-    const authTokenCookie = useCookie('auth_token'); // Récupère le cookie nommé 'auth_token'
-    const token = authTokenCookie.value; // Valeur du cookie
+     // Récupère le cookie nommé 'auth_token'
+     useStore.loadAuthFromCookies();
+    const token = useStore.token; // Valeur du cookie
     const router = useRouter();
 
 
