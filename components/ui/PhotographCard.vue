@@ -35,7 +35,7 @@ const rating = photograph.rating.length ? photograph.rating.reduce((sum: number,
 const router = useRouter(); 
 
 const goToUser = (id: string) => {
-  router.push(`/photographe/${id}`);
+  router.push(`/user/${id}`);
 };
 </script>
 

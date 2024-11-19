@@ -68,14 +68,12 @@ const filteredSlots = computed(() => {
   return filtered;
 });
 
-// Pagination des créneaux filtrés
 const paginatedSlots = computed(() => {
   const start = first.value;
   const end = start + rows.value;
   return filteredSlots.value.slice(start, end);
 });
 
-// Gestion du changement de page
 const onPageChange = (event: { first: number; rows: number; }) => {
   first.value = event.first;
   rows.value = event.rows;

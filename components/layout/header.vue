@@ -36,7 +36,7 @@
     <div class="flex items-center space-x-4">
       <NuxtLink 
       v-if="user" 
-      :to="'/'" 
+      :to="'/user/' + user._id" 
       class="text-gray-700 text-white p-1 px-4 bg-primary-mid rounded hover:bg-primary-dark">
       {{ user.firstName }} {{ user.lastName }}
     </NuxtLink>
