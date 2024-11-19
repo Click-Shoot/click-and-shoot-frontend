@@ -64,8 +64,6 @@ import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
-
-
 const showDropdown = ref(false);
 const tags = ref<Tag[]>([]);
 const tagsStore = useTagsStore();
