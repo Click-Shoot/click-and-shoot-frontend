@@ -40,6 +40,7 @@
 </template>
 
 <script setup lang="ts">
+import { useCookie } from 'nuxt/app';
 import { ref, computed, onMounted } from 'vue';
 import { useTagsStore } from '@/stores/tags'; 
 
@@ -54,6 +55,20 @@ onMounted(async () => {
 
 const leftTags = computed(() => tags.value.slice(0, 5));
 const rightTags = computed(() => tags.value.slice(5, 10));
+
+
+const tokenCookie = useCookie('auth_token');
+const userCookie = useCookie('auth_user');
+console.log("TOKEN : " + tokenCookie.value);
+console.log("USER : " + JSON.stringify(userCookie.value));
+
+const handleLogout = () => {
+  tokenCookie.value = null;
+  userCookie.value = null;
+  if (tokenCookie.value === null && userCookie.value === null) {
+    console.log('Utilisateur déconnecté');
+}
+};
 </script>
 
 <style scoped>
