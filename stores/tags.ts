@@ -12,7 +12,7 @@ export interface Tag {
 }
 
 
-export const useTagsStore = defineStore('counter', () => {
+export const useTagsStore = defineStore('tags', () => {
   const { $api } = useNuxtApp(); 
 
 const tags = ref<Tag[]>([])
