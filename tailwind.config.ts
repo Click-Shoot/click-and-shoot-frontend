@@ -3,6 +3,9 @@ import type {Config} from 'tailwindcss'
 export default <Partial<Config>>{
     theme: {
         extend: {
+            spacing: {
+                '128': '430px',
+            },
             colors: {
                 primary: {
                     mid: "#94b7f1",
