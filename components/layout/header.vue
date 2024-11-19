@@ -58,7 +58,6 @@
 </template>
 
 <script setup lang="ts">
-import { useCookie } from 'nuxt/app';
 import { ref, computed, onMounted } from 'vue';
 import { useTagsStore } from '@/stores/tags'; 
 import { useAuthStore } from '@/stores/auth';
@@ -78,25 +77,8 @@ onMounted(async () => {
 
 const leftTags = computed(() => tags.value.slice(0, 5));
 const rightTags = computed(() => tags.value.slice(5, 10));
-// const firstName = ref('')
-// const lastName = ref('')
 const user = computed(() => authStore.user);
-// const tokenCookie = useCookie('auth_token');
-// console.log(tokenCookie.value)
-// const userCookie = useCookie('auth_user');
 
-// if (userCookie.value) {
-//     const user = JSON.stringify(userCookie.value)
-//     const userParsed = JSON.parse(user)
-//     if (userParsed && userParsed.firstName && userParsed.lastName) {
-//       firstName.value = userParsed.firstName
-//       lastName.value = userParsed.lastName
-//     }
-//   }
-// const buttonText = ref('Login')
-// if(firstName.value !== null && lastName.value !== null) {
-//   buttonText.value = `${firstName.value} ${lastName.value}`
-// }
 authStore.loadAuthFromCookies();
 
 const handleLogout = () => {
@@ -104,13 +86,6 @@ const handleLogout = () => {
   router.push('/auth');
 };
 
-// const handleLogout = () => {
-//   tokenCookie.value = null;
-//   userCookie.value = null;
-//   if (tokenCookie.value === null && userCookie.value === null) {
-//     console.log('Utilisateur déconnecté');
-// }
-// };
 </script>
 
 <style scoped>

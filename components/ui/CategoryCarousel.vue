@@ -1,6 +1,6 @@
 <template>
   <div class="relative p-4">
-    <h2 class="text-xl font-bold mb-4">Top catégories</h2>
+    <h2 class="text-xl font-bold mb-4">Les catégories</h2>
     <div class="flex items-center space-x-2">
       <button
         @click="prev"

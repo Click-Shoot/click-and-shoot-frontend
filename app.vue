@@ -8,8 +8,9 @@
 <script setup>
 </script>
 
-<style scoped>
+<style>
 .html {
   background: #E7E5DF;
 }
+
 </style>

@@ -26,15 +26,8 @@ const photographers = ref<Photographer[]>([]);
 
 onMounted(async () => {
   try {
-    const data: any = await $api('/photographers');
-
-    photographers.value = data.photographers;
-
-    photographers.value = photographers.value.sort((a: any, b: any) => {
-      const averageA = a.rating.length ? a.rating.reduce((sum: number, rating: number) => sum + rating, 0) / a.rating.length : 0;
-      const averageB = b.rating.length ? b.rating.reduce((sum: number, rating: number) => sum + rating, 0) / b.rating.length : 0;
-      return averageB - averageA;
-    }).slice(0, 10);
+    const data: any = await $api('/users/notation');
+    photographers.value = data;
   } catch (error) {
     console.error('Erreur lors de la récupération des photographes :', error);
   }
