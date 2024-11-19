@@ -247,7 +247,7 @@ const createSlot = async () => {
         photographId: id,
       }
     });
-    //si la réponse est bonne 
+
     if (response && response._id) {
 
       const slotsData = await $api(`/users/${id}/slots`, {
