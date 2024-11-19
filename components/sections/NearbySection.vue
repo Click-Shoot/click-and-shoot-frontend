@@ -22,14 +22,14 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import SlotCard from '@/components/ui/SlotCard.vue'; // Assurez-vous que le chemin d'importation est correct
+import SlotCard from '@/components/ui/SlotCard.vue';
 import { useNuxtApp } from '#app';
 import Paginator from 'primevue/paginator';
 
 const { $api } = useNuxtApp();
 
-const selectedCity = ref<string>('Toutes'); // Valeur par défaut "Toutes"
-const filterDate = ref<string>('Plus récent'); // Valeur par défaut "Plus récent"
+const selectedCity = ref<string>('Toutes'); 
+const filterDate = ref<string>('Plus récent'); 
 const cities = [
   "Paris",
   "Lyon",

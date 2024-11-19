@@ -27,7 +27,7 @@
     <div class="mt-4 flex justify-end">
       <button
         v-if="!slot.isReserved"
-        @click="reserveSlot"
+        @click="requireConfirmation()"
         class="bg-primary-mid text-white px-4 py-2 rounded hover:bg-primary-dark"
       >
         Réserver
@@ -41,10 +41,36 @@
       </button>
     </div>
   </div>
+
+
+  <ConfirmDialog group="headless">
+        <template #container="{ message, acceptCallback, rejectCallback }">
+            <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
+                <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
+                    <i class="pi pi-question text-5xl"></i>
+                </div>
+                <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
+                <p class="mb-0">{{ message.message }}</p>
+                <div class="flex items-center gap-2 mt-6">
+                    <Button label="Save" @click="acceptCallback"></Button>
+                    <Button label="Cancel" outlined @click="rejectCallback"></Button>
+                </div>
+            </div>
+        </template>
+    </ConfirmDialog>
+    <Toast />
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useNuxtApp } from '#app';
+import { useAuthStore } from '@/stores/auth';
+import { useConfirm } from "primevue/useconfirm";
+import { useToast } from "primevue/usetoast";
+
+const authStore = useAuthStore();
+
+const { $api } = useNuxtApp();
 
 interface Slot {
   _id: string;
@@ -57,6 +83,26 @@ interface Slot {
 }
 
 const props = defineProps<{ slot: Slot }>();
+
+const confirm = useConfirm();
+const toast = useToast();
+
+const requireConfirmation = () => {
+    confirm.require({
+        group: 'headless',
+        header: 'Are you sure?',
+        message: 'Please confirm to proceed.',
+        accept: () => {
+            toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+            reserveSlot();
+        },
+        reject: () => {
+            toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+        }
+    });
+};
+
+
 
 const formattedDate = computed(() => {
   const date = new Date(props.slot.start_date);
@@ -73,11 +119,17 @@ const formattedEndTime = computed(() => {
   return endTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 });
 
-const reserveSlot = () => {
-  alert(`Réservation du créneau à ${props.slot.location}`);
 
-  // Call API to reserve slot
-  
+const reserveSlot = async () => {
+  console.log('Slot ID:', props.slot._id);
+  console.log('Customer ID:', authStore.user._id);
+  await $api('/slots/reserve', {
+    method: 'POST',
+    body: {
+    slotId: props.slot._id,
+    customersId: authStore.user._id,
+  }
+});
 };
 </script>
 
