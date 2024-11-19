@@ -78,6 +78,23 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
+import { useCookie } from 'nuxt/app';
+
+definePageMeta({
+  middleware: 'auth',
+});
+
+const router = useRouter();
+
+// onMounted(() => {
+//   const token = localStorage.getItem('authToken');
+//   if (token) {
+//     console.log("Token trouvé, redirection vers le dashboard...");
+//     router.push('/'); // Change '/dashboard' par l'URL de redirection
+//   }
+// });
 
 // Data for login and signup forms
 const tab = ref('login') // 'login' or 'signup'
@@ -94,10 +111,46 @@ const signupData = ref({
 })
 
 // Handlers for form submission
-const handleLogin = () => {
-  // Handle login logic
-  console.log("Login", loginData.value)
+async function handleLogin() {
+  try {
+    const response = await fetch("http://localhost:3000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error("Échec de l'authentification.");
+    }
+
+    const data = await response.json();
+
+    if (data.token) {
+      const tokenCookie = useCookie('auth_token', { secure: true, sameSite: 'strict' }); // Cookie sécurisé pour le token
+      const userCookie = useCookie('auth_user', { secure: true, sameSite: 'strict' }); // Cookie sécurisé pour l'utilisateur
+      
+      tokenCookie.value = data.token;
+      userCookie.value = JSON.stringify(data.user); // Les objets doivent être transformés en chaînes de caractères
+    } else {
+      console.warn("Aucun token trouvé dans la réponse de l'API.");
+    }
+
+    console.log("Utilisateur authentifié :", data);
+
+    // Effectuer une redirection ou d'autres actions
+  } catch (error) {
+    console.error("Erreur:", error);
+  }
+
+  
+  
 }
+
 
 const handleSignup = () => {
   if (signupData.value.password !== signupData.value.confirmPassword) {
