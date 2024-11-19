@@ -2,16 +2,12 @@
   <div class="p-4">
     <h2 class="text-xl font-bold mb-4">Proche de vous</h2>
     <div class="flex space-x-4 mb-4">
-      <!-- Select pour le filtrage par ville avec option "Toutes" -->
       <Select v-model="selectedCity" :options="['Toutes', ...cities]" placeholder="Choisi une ville" class="w-1/2 md:w-56" />
-      <!-- Select pour le tri par date avec tri par défaut "Plus récent" -->
       <Select v-model="filterDate" :options="['Plus récent', 'Plus loin']" placeholder="Plus récent 🔃" class="md:w-56 w-1/2" />
     </div>
-    <!-- Affichage des créneaux filtrés avec pagination -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <SlotCard v-for="slot in paginatedSlots" :key="slot._id" :slot="slot" />
     </div>
-    <!-- Pagination -->
     <div class="mt-4">
       <Paginator
         :rows="rows"
@@ -48,15 +44,14 @@ const cities = [
 ];
 
 const slots = ref<any[]>([]);
-const first = ref(0); // Pour la pagination
-const rows = ref(20); // Nombre de créneaux à afficher par page
+const first = ref(0); 
+const rows = ref(10); 
 
 onMounted(async () => {
-  const slotsData = await $api('/slots');
-  slots.value = slotsData.filter(slot => !slot.isReserved && new Date(slot.start_date) > new Date());
+  const slotsData: any = await $api('/slots');
+  slots.value = slotsData.filter((slot: { isReserved: any; start_date: string | number | Date; }) => !slot.isReserved && new Date(slot.start_date) > new Date());
 });
 
-// Filtrage des créneaux en fonction des sélections de l'utilisateur
 const filteredSlots = computed(() => {
   let filtered = slots.value;
 
@@ -81,7 +76,7 @@ const paginatedSlots = computed(() => {
 });
 
 // Gestion du changement de page
-const onPageChange = (event) => {
+const onPageChange = (event: { first: number; rows: number; }) => {
   first.value = event.first;
   rows.value = event.rows;
 };

@@ -11,13 +11,9 @@ export default defineNuxtPlugin(() => {
       }
     },
     onResponse({ response }) {
-      // Optionnel : traitement des réponses
     },
     onResponseError({ response }) {
       console.error(response);
-      if (response.status === 401) {
-        navigateTo('/auth');
-      }
     }
   });
 

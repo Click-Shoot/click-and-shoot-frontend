@@ -1,5 +1,3 @@
-// stores/auth.ts
-import { defineStore } from 'pinia';
 import { useCookie } from '#app';
 
 export const useAuthStore = defineStore('auth', () => {
@@ -13,8 +11,8 @@ export const useAuthStore = defineStore('auth', () => {
 
     token.value = tokenCookie.value ?? null;
     user.value = userCookie.value;
-    
-    if(!token.value || !user.value ){
+
+    if (!token.value || !user.value) {
       clearAuth();
     }
   };
@@ -42,7 +40,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     token.value = null;
     user.value = null;
-    if(token.value === null && user.value === null){
+    if (token.value === null && user.value === null) {
       console.log('Déconnexion réussie');
     }
   };
