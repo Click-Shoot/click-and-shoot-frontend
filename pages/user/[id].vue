@@ -183,8 +183,13 @@ const fetchData = async () => {
 };
 
 const fetchSlots = async (type) => {
-  const response = await $api(`/users/${id}/slots`, { params: { type } });
-  return response?.sort((a, b) => new Date(a.start_date) - new Date(b.start_date)) || [];
+    try {
+      const response = await $api(`/users/${id}/slots`, { params: { type } });
+      return response?.sort((a, b) => new Date(a.start_date) - new Date(b.start_date)) || [];
+    } catch (error) {
+      console.error("Erreur lors de la récupération des créneaux :", error);
+      return [];
+    }
 };
 
 const computeRating = (ratings) => {
