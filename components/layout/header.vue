@@ -1,8 +1,8 @@
 <template>
   <nav class="flex items-center px-20 justify-between h-16 bg-white shadow-md relative">
     <div class="flex items-center space-x-4">
-      <!-- <img src="/logo.png" alt="OpenDoor Logo" class="h-8 w-auto" /> -->
-      <h2>LOGO</h2>
+      <img src="/public/assets/c&s.png" alt="OpenDoor Logo" class="h-12 w-auto" />
+      <!-- <h2>LOGO</h2> -->
     </div>
     <div class="flex items-center space-x-4 relative h-full">
       <ul class="flex items-center space-x-4 h-full">
