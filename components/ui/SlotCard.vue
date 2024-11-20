@@ -1,6 +1,7 @@
 <template>
   <div class="relative border rounded-lg shadow-md p-4 bg-white flex flex-col justify-between h-full min-w-60">
-    <button
+    <div v-if="authStore.user">
+      <button
       v-if="authStore.user._id === slot.photographId"
       @click="deleteSlot()"
       class="absolute top-2 right-2 text-red-500 hover:text-red-700"
@@ -20,6 +21,8 @@
         />
       </svg>
     </button>
+    </div>
+
     <h3 class="text-lg font-semibold mb-1">{{ user.firstName }} {{ user.lastName }}</h3>
     <div class="flex w-full justify-between">
       <div>
@@ -44,7 +47,7 @@
       </div>
     </div>
     <div class="mt-4 flex justify-end">
-      <button v-if="!slot.isReserved" @click="requireConfirmation()"
+      <button v-if="!slot.isReserved && authStore.user" @click="requireConfirmation()"
         class="bg-primary-mid text-white px-4 py-2 rounded hover:bg-primary-dark">
         Réserver
       </button>
@@ -95,7 +98,6 @@ interface Slot {
 const props = defineProps<{ slot: Slot }>();
 const user = ref<any>({});
 
-
 onMounted(async () => {
   try {
     const data = await $api('/users/' + props.slot.photographId);
@@ -136,7 +138,6 @@ const deleteSlot = async () => {
     await $api(`/slots/${props.slot._id}`, { method: 'DELETE' });
     toast.add({ severity: 'success', summary: 'Supprimé', detail: 'Le créneau a été supprimé', life: 3000 });
 
-    // Émettre un événement pour informer le parent
     emit('slotDeleted', props.slot._id);
   } catch (error) {
     console.error('Erreur lors de la suppression du créneau:', error);
@@ -162,11 +163,6 @@ const formattedEndTime = computed(() => {
 
 
 const reserveSlot = async () => {
-  //ne peut pas réserver son propre créneau
-
-
-
-
   await $api('/slots/reserve', {
     method: 'POST',
     body: {

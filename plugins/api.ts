@@ -13,6 +13,12 @@ export default defineNuxtPlugin(() => {
     onResponse({ response }) {
     },
     onResponseError({ response }) {
+
+      if (response._data.message === 'Invalid token') {
+        useAuthStore().clearAuth();
+        return;
+      }
+
       console.error(response);
     }
   });

@@ -40,9 +40,6 @@ export const useAuthStore = defineStore('auth', () => {
 
     token.value = null;
     user.value = null;
-    if (token.value === null && user.value === null) {
-      console.log('Déconnexion réussie');
-    }
   };
 
   return {

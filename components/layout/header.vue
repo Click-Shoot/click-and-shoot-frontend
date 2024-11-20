@@ -67,7 +67,9 @@ const authStore = useAuthStore();
 const showDropdown = ref(false);
 const tags = ref<Tag[]>([]);
 const tagsStore = useTagsStore();
+
 const router = useRouter();
+
 onMounted(async () => {
   await tagsStore.fetchTags();
   tags.value = tagsStore.getTags(); 

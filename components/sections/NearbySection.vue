@@ -6,7 +6,7 @@
       <Select v-model="filterDate" :options="['Plus récent', 'Plus loin']" placeholder="Plus récent 🔃" class="md:w-56 w-1/2" />
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      <SlotCard v-for="slot in paginatedSlots" :key="slot._id" :slot="slot" />
+      <SlotCard v-for="slot in paginatedSlots" :key="slot._id" :slot="slot" @slotDeleted="handleSlotDeleted" />
     </div>
     <div class="mt-4">
       <Paginator
@@ -77,6 +77,12 @@ const paginatedSlots = computed(() => {
 const onPageChange = (event: { first: number; rows: number; }) => {
   first.value = event.first;
   rows.value = event.rows;
+};
+
+const handleSlotDeleted = async () => {
+  const slotsData: any = await $api('/slots');
+  slots.value = slotsData.filter((slot: { isReserved: any; start_date: string | number | Date; }) => !slot.isReserved && new Date(slot.start_date) > new Date());
+
 };
 </script>
 
