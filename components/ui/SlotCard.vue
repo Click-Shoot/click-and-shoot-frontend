@@ -46,13 +46,19 @@
         <img :src="user.avatar" alt="Photograph" class="w-full h-full object-cover rounded" />
       </div>
     </div>
-    <div class="mt-4 flex justify-end">
-      <button v-if="!slot.isReserved && authStore.user" @click="requireConfirmation()"
+    <div v-if="authStore.user" class="mt-4 flex justify-end">
+      <button v-if="!slot.isReserved" @click="requireConfirmation()"
         class="bg-primary-mid text-white px-4 py-2 rounded hover:bg-primary-dark">
         Réserver
       </button>
+      <!-- reservé par moi -->
+      <button v-else-if="slot.isReserved && authStore.user._id === slot.customersId"
+        @click="cancelReservation()"
+        class="bg-red-400 text-white px-4 py-2 rounded">
+        Annuler ma réservation
+      </button>
       <button v-else class="bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed" disabled>
-        Réservé
+        Déjà réservé
       </button>
     </div>
   </div>
@@ -91,7 +97,7 @@ interface Slot {
   end_date: string;
   location: string;
   photographId: string;
-  customersId: string;
+  customersId: string | null;
   isReserved: boolean;
 }
 
@@ -170,6 +176,22 @@ const reserveSlot = async () => {
       customersId: authStore.user._id,
     }
   });
+
+  props.slot.isReserved = true;
+  props.slot.customersId = authStore.user._id;
+};
+
+const cancelReservation = async () => {
+  await $api(`/slots/${props.slot._id}`, {
+    method: 'PUT',
+    body: {
+      customersId: null,
+      isReserved: false
+    }
+  });
+
+  props.slot.isReserved = false;
+  props.slot.customersId = null;
 };
 </script>
 
