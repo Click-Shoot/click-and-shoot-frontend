@@ -33,6 +33,10 @@
           </div>
 
           <button type="submit" class="bg-primary-mid text-white py-2 px-4 rounded w-full">Login</button>
+          <div v-if="loginError" class="fixed top-4 right-4 bg-red-500 text-white p-4 rounded shadow-lg">
+            {{ loginError }}
+            <button @click="loginError = null" class="ml-4 text-gray-200">✕</button>
+          </div>
         </form>
       </div>
 
@@ -104,6 +108,7 @@ const email = ref('');
 const password = ref('');
 
 const loginError = ref<string | null>(null);
+loginError.value = null;
 
 const handleLogin = async () => {
   try {
@@ -115,7 +120,7 @@ const handleLogin = async () => {
     });
 
     if (!response.ok) {
-      throw new Error('Échec de l’authentification');
+      throw new Error('Email ou mot de passe incorrect');
     }
 
     const data = await response.json();
