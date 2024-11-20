@@ -175,7 +175,10 @@ const handleSignup = async () => {
       signupError.value = message.message 
       return 
     }
-    await router.push('/auth')
+
+    email.value = signupData.value.email
+    password.value = signupData.value.password
+    handleLogin()
   } catch (error) {
     signupError.value = 'An unexpected error occurred'
     console.error(error)
