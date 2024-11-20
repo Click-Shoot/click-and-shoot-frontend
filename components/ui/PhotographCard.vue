@@ -17,7 +17,7 @@
       <div>
         <p class="text-primary-mid font-bold">{{ photograph.price.toFixed(2) }}€ /h</p>
       </div>
-      <button @click="goToUser(photograph._id)" :class="{ disabled: !authStore.user }" class="bg-primary-mid text-white px-3 py-1 rounded hover:bg-primary-dark">Voir</button>
+      <button @click="goToUser(photograph._id)" class="bg-primary-mid text-white px-3 py-1 rounded hover:bg-primary-dark">Voir</button>
     </div>
   </div>
 </template>
@@ -37,8 +37,6 @@ const props = defineProps({
 const { photograph } = props;
 const rating = photograph.rating.length ? photograph.rating.reduce((sum: number, rating: number) => sum + rating, 0) / photograph.rating.length : 0;
 const router = useRouter(); 
-
-const disabled = computed(() => !authStore.user);
 
 const goToUser = (id: string) => {
   router.push(`/user/${id}`);

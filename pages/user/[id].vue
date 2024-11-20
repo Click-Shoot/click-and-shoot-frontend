@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user" class="mb-12">
+  <div class="mb-12">
     <div class="container mx-auto p-4 space-y-8 mt-10">
       <!-- Si l'utilisateur est un photographe -->
       <div v-if="user.isPhotograph" class="flex gap-16">
@@ -43,9 +43,11 @@
       <div class="mt-8">
         <div class="flex items-center gap-4 mb-4">
           <h2 class="text-3xl font-bold">Créneaux proposés</h2>
-          <button v-if="authStore.user._id === id" @click="showModal = true" class="bg-primary-mid px-4 py-1 rounded text-white">
+
+          <button v-if="authStore.user?._id === id" @click="showModal = true" class="bg-primary-mid px-4 py-1 rounded text-white">
                 Ajouter un créneau
           </button>
+
         </div>
         <div v-if="mySlots.length > 0">
           <div class="flex justify-between items-center mb-4">
@@ -69,7 +71,8 @@
       </div>
 
       <!-- Créneaux réservés par ce photographe (s'il est connecté) -->
-      <div v-if="authStore.user._id === id" class="mt-8">
+      
+      <div v-if="authStore.user?._id === id" class="mt-8">
         <h2 class="text-2xl font-bold mb-4">Créneaux réservés</h2>
         <div v-if="slots.length > 0">
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -127,7 +130,14 @@ const authStore = useAuthStore();
 const route = useRoute();
 const id = route.params.id;
 
-const user = ref(null);
+const user = ref({
+  _id: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  rating: [],
+  isPhotograph: false,
+});
 const slots = ref([]);
 const mySlots = ref([]);
 const gallery = ref([]);
