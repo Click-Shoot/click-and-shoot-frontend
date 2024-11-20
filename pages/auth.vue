@@ -40,6 +40,14 @@
       <div v-if="tab === 'signup'">
         <form @submit.prevent="handleSignup">
           <div class="mb-4">
+            <label for="signup-firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+            <input v-model="signupData.firstName" type="text" id="signup-firstName" class="mt-1 p-2 w-full border rounded-md" required />
+          </div>
+          <div class="mb-4">
+            <label for="signup-lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+            <input v-model="signupData.lastName" type="text" id="signup-lastName" class="mt-1 p-2 w-full border rounded-md" required />
+          </div>
+          <div class="mb-4">
             <label for="signup-email" class="block text-sm font-medium text-gray-700">Email</label>
             <input v-model="signupData.email" type="email" id="signup-email" class="mt-1 p-2 w-full border rounded-md" required />
           </div>
@@ -60,7 +68,7 @@
               required 
             />
             <span v-if="signupData.confirmPassword && signupData.password !== signupData.confirmPassword" class="text-red-500 text-sm">
-              Passwords do not match!
+              Les mots de passe ne correspondent pas !
             </span>
           </div>
 
@@ -70,6 +78,10 @@
           </div>
 
           <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded w-full">Signup</button>
+          <div v-if="signupError" class="fixed top-4 right-4 bg-red-500 text-white p-4 rounded shadow-lg">
+            {{ signupError }}
+            <button @click="signupError = null" class="ml-4 text-gray-200">✕</button>
+          </div>
         </form>
       </div>
     </div>
@@ -124,8 +136,52 @@ const signupData = ref({
   email: '',
   password: '',
   confirmPassword: '',
+  firstName: '',
+  lastName: '',
   isPhotographer: false
 })
+
+const signupError = ref<string | null>(null)
+
+const handleSignup = async () => {
+  signupError.value = null
+  if (signupData.value.password !== signupData.value.confirmPassword) {
+    signupError.value = "Les mots de passe ne correspondent pas.";
+    return;
+  }
+  try {
+    const response = await fetch('http://localhost:3000/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstName: signupData.value.firstName,
+        lastName: signupData.value.lastName,
+        email: signupData.value.email,
+        password: signupData.value.password,
+        description: 'a',
+        rating: [],
+        tags: [],
+        stuff: [],
+        slotsBooked: [],
+        isPhotograph: signupData.value.isPhotographer,
+      }),
+    })
+    console.log("response",response)
+
+    if (!response.ok) {
+      const message = await response.json()
+      signupError.value = message.message 
+      return 
+    }
+    await router.push('/auth')
+  } catch (error) {
+    signupError.value = 'An unexpected error occurred'
+    console.error(error)
+  }
+}
+
 </script>
 
 <style scoped>
