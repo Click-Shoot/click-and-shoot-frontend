@@ -8,14 +8,14 @@
           @click="tab = 'login'"
           class="px-4 py-2 font-semibold"
         >
-          Login
+          Connexion
         </button>
         <button 
           :class="tab === 'signup' ? 'text-primary-mid border-b-2 border-primary-mid' : 'text-gray-500'"
           @click="tab = 'signup'"
           class="px-4 py-2 font-semibold"
         >
-          Signup
+          Inscription
         </button>
       </div>
 
@@ -28,11 +28,11 @@
           </div>
 
           <div class="mb-4">
-            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
             <input v-model="password" type="password" id="password" class="mt-1 p-2 w-full border rounded-md" required />
           </div>
 
-          <button type="submit" class="bg-primary-mid text-white py-2 px-4 rounded w-full">Login</button>
+          <button type="submit" class="bg-primary-mid text-white py-2 px-4 rounded w-full">Connexion</button>
           <div v-if="loginError" class="fixed top-4 right-4 bg-red-500 text-white p-4 rounded shadow-lg">
             {{ loginError }}
             <button @click="loginError = null" class="ml-4 text-gray-200">✕</button>
@@ -44,11 +44,11 @@
       <div v-if="tab === 'signup'">
         <form @submit.prevent="handleSignup">
           <div class="mb-4">
-            <label for="signup-firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+            <label for="signup-firstName" class="block text-sm font-medium text-gray-700">Prénom</label>
             <input v-model="signupData.firstName" type="text" id="signup-firstName" class="mt-1 p-2 w-full border rounded-md" required />
           </div>
           <div class="mb-4">
-            <label for="signup-lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+            <label for="signup-lastName" class="block text-sm font-medium text-gray-700">Nom</label>
             <input v-model="signupData.lastName" type="text" id="signup-lastName" class="mt-1 p-2 w-full border rounded-md" required />
           </div>
           <div class="mb-4">
@@ -57,12 +57,12 @@
           </div>
 
           <div class="mb-4">
-            <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
+            <label for="signup-password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
             <input v-model="signupData.password" type="password" id="signup-password" class="mt-1 p-2 w-full border rounded-md" required />
           </div>
 
           <div class="mb-4">
-            <label for="confirm-password" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+            <label for="confirm-password" class="block text-sm font-medium text-gray-700">Confirmer mot de passe</label>
             <input 
               v-model="signupData.confirmPassword" 
               type="password" 
@@ -78,10 +78,10 @@
 
           <div class="mb-4 flex items-center">
             <input v-model="signupData.isPhotographer" type="checkbox" id="photographer-checkbox" class="mr-2">
-            <label for="photographer-checkbox" class="text-sm text-gray-700">Are you a photographer?</label>
+            <label for="photographer-checkbox" class="text-sm text-gray-700">Etes-vous photographe ?</label>
           </div>
 
-          <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded w-full">Signup</button>
+          <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded w-full">S'inscrire</button>
           <div v-if="signupError" class="fixed top-4 right-4 bg-red-500 text-white p-4 rounded shadow-lg">
             {{ signupError }}
             <button @click="signupError = null" class="ml-4 text-gray-200">✕</button>

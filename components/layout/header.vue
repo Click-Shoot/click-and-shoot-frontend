@@ -29,7 +29,7 @@
           </div>
         </li>
         <li class="h-full flex items-center">
-          <a href="#" class="text-gray-700 hover:text-primary-mid">Contact</a>
+          <a href="/contact" class="text-gray-700 hover:text-primary-mid">Contact</a>
         </li>
       </ul>
     </div>
@@ -51,7 +51,7 @@
     v-if="!user"
     :to="'/auth'" 
     class="text-gray-700 text-white p-1 px-4 bg-primary-mid rounded hover:bg-primary-dark">
-    Login
+    Connexion/Inscription
   </NuxtLink>
     </div>
   </nav>
