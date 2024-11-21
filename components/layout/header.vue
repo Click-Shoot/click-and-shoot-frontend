@@ -45,7 +45,7 @@
     :to="'/auth'" 
     class="text-gray-700 text-white p-1 px-4 bg-primary-mid rounded hover:bg-primary-dark"
     @click="handleLogout">
-    Logout
+    Déconnexion
   </NuxtLink>
   <NuxtLink 
     v-if="!user"
