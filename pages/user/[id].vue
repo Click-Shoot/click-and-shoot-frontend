@@ -8,9 +8,9 @@
         >
           <div class="profil-user-avatar mb-4">
             <img
-              src="https://picsum.photos/150/150"
+              :src="user.avatar"
               alt=""
-              class="rounded-full"
+              class="rounded-full w-40"
             />
           </div>
           <h1 class="text-3xl font-bold">{{ user.firstName }} {{ user.lastName }}</h1>
@@ -102,7 +102,7 @@
             <label>Emplacement</label>
             <Select
               v-model="newSlot.location"
-              :options="['Toutes', ...cities]"
+              :options="cities"
               placeholder="Choisi une ville"
               required
             />

@@ -1,5 +1,5 @@
 <template>
-  <div class="border rounded-lg shadow-md p-4 bg-white flex flex-col justify-between h-full min-w-60">
+  <div v-if="!isCancel" class="border rounded-lg shadow-md p-4 bg-white flex flex-col justify-between h-full min-w-60">
     <h3 class="text-lg font-semibold mb-1">{{ user.firstName }} {{ user.lastName }}</h3>
    <div class="flex w-full justify-between">
     <div>
@@ -17,6 +17,11 @@
         <img :src="user.avatar" alt="Photograph" class="w-full h-full object-cover rounded" />
       </div>
   </div>
+  <button v-if="slot.isReserved && authStore.user._id === slot.customersId"
+        @click="cancelReservation()"
+        class="bg-red-400 text-white px-4 py-2 rounded">
+        Annuler ma réservation
+      </button>
   </div>
 
   <ConfirmDialog group="headless">
@@ -51,12 +56,13 @@ interface Slot {
   end_date: string;
   location: string;
   photographId: string;
-  customersId: string;
+  customersId: string | null;
   isReserved: boolean;
 }
 
 const props = defineProps<{ slot: Slot }>();
 const user = ref<any>({});
+const isCancel = ref(false);
 
 
 onMounted(async () => {
@@ -115,9 +121,26 @@ const reserveSlot = async () => {
     slotId: props.slot._id,
     customersId: authStore.user._id,
   }
-
 });
 };
+
+const cancelReservation = async () => {
+  await $api(`/slots/${props.slot._id}`, {
+    method: 'PUT',
+    body: {
+      customersId: null,
+      isReserved: false
+    }
+  });
+
+  props.slot.isReserved = false;
+  props.slot.customersId = null;
+
+  toast.add({ severity: 'success', summary: 'Annulé', detail: 'Votre réservation a été annulée', life: 3000 });
+
+  isCancel.value = true;
+};
+
 </script>
 
 <style scoped>
