@@ -18,7 +18,7 @@
       </div>
   </div>
   <button v-if="slot.isReserved && authStore.user._id === slot.customersId"
-        @click="cancelReservation()"
+        @click="requireConfirmationCancelSlot()"
         class="bg-red-400 text-white px-4 py-2 rounded">
         Annuler ma réservation
       </button>
@@ -95,7 +95,34 @@ const requireConfirmation = () => {
     });
 };
 
+const requireConfirmationCancelSlot = () => {
+  confirm.require({
+    group: "headless",
+    header: "Confirmation",
+    message: "Confirmez-vous l'annulation de de votre réservation ?",
 
+    accept: () => {
+      confirm.close();
+      toast.add({
+        severity: "success",
+        summary: "Confirmé",
+        detail: "Votre réservation est bien annulé",
+        life: 3000,
+        closable: true,
+      });
+      cancelReservation();
+    },
+    reject: () => {
+      confirm.close();
+      toast.add({
+        severity: "error",
+        summary: "Annulé",
+        detail: "Vous n'avez pas annulé votre réservation",
+        life: 3000,
+      });
+    },
+  });
+};
 
 const formattedDate = computed(() => {
   const date = new Date(props.slot.start_date);
@@ -136,7 +163,6 @@ const cancelReservation = async () => {
   props.slot.isReserved = false;
   props.slot.customersId = null;
 
-  toast.add({ severity: 'success', summary: 'Annulé', detail: 'Votre réservation a été annulée', life: 3000 });
 
   isCancel.value = true;
 };
