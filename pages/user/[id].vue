@@ -34,7 +34,8 @@
             {{ user.firstName }} {{ user.lastName }}
           </h1>
           <p class="text-gray-500">{{ user.email }}</p>
-          <div v-if="user.isPhotograph" class="mt-4 flex flex-col items-center">
+          <p v-if="!user.isPhotograph" class="text-gray-500 mt-2">{{ user.description }}</p>
+          <div v-if="user.isPhotograph" class="mt-2 flex flex-col items-center">
             <div class="flex items-center">
               <svg
                 v-for="i in 5"
@@ -55,9 +56,14 @@
               </p>
             </div>
             <p class="text-sm text-gray-500">{{ user.rating.length }} avis</p>
-
-            <p class="text-gray-500 mt-3">{{ user.description }}</p>
-            <p class="text-gray-500">{{ user.stuff.toString() }}</p>
+            <div class="flex items-center gap-2 mt-2">
+              <Icon name="material-symbols:ink-pen-rounded" style="color: #2d3748" size="21" />
+              <p class="text-gray-500 mt-2">{{ user.description }}</p>
+            </div>
+            <div class="flex items-center gap-2 mt-2">
+              <Icon name="material-symbols:photo-camera" style="color: #2d3748" size="21" />
+              <p class="text-gray-500">{{ user.stuff.toString() }}</p>
+            </div>
           </div>
         </div>
         <PhotographCarousel
