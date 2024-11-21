@@ -1,9 +1,8 @@
 <template>
   <div class="mb-12">
     <div class="container mx-auto p-4 space-y-8 mt-10">
-      <!-- Si l'utilisateur est un photographe -->
-      <div v-if="user.isPhotograph" class="flex gap-16">
-          <PhotographCarousel v-if="gallery.length > 0" :images="gallery" />
+      <!-- Informations générales de l'utilisateur -->
+      <div class="flex gap-16">
         <div
           class="w-3/5 bg-white border rounded-lg shadow p-8 flex flex-col justify-center items-center"
         >
@@ -16,7 +15,7 @@
           </div>
           <h1 class="text-3xl font-bold">{{ user.firstName }} {{ user.lastName }}</h1>
           <p class="text-gray-500">{{ user.email }}</p>
-          <div class="mt-4 flex flex-col items-center">
+          <div v-if="user.isPhotograph" class="mt-4 flex flex-col items-center">
             <div class="flex items-center">
               <svg
                 v-for="i in 5"
@@ -37,17 +36,21 @@
             <p class="text-sm text-gray-500">{{ user.rating.length }} avis</p>
           </div>
         </div>
+        <PhotographCarousel v-if="user.isPhotograph && gallery.length > 0" :images="gallery" />
       </div>
 
       <!-- Créneaux proposés par le photographe -->
-      <div class="mt-8">
+      <div v-if="user.isPhotograph" class="mt-8">
         <div class="flex items-center gap-4 mb-4">
           <h2 class="text-3xl font-bold">Créneaux proposés</h2>
 
-          <button v-if="authStore.user?._id === id" @click="showModal = true" class="bg-primary-mid px-4 py-1 rounded text-white">
-                Ajouter un créneau
+          <button
+            v-if="authStore.user?._id === id"
+            @click="showModal = true"
+            class="bg-primary-mid px-4 py-1 rounded text-white"
+          >
+            Ajouter un créneau
           </button>
-
         </div>
         <div v-if="mySlots.length > 0">
           <div class="flex justify-between items-center mb-4">
@@ -70,8 +73,7 @@
         <p v-else class="text-gray-500">Aucun créneau proposé pour le moment.</p>
       </div>
 
-      <!-- Créneaux réservés par ce photographe (s'il est connecté) -->
-      
+      <!-- Créneaux réservés par cet utilisateur -->
       <div v-if="authStore.user?._id === id" class="mt-8">
         <h2 class="text-2xl font-bold mb-4">Créneaux réservés</h2>
         <div v-if="slots.length > 0">
@@ -114,6 +116,7 @@
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { onMounted, ref, computed } from "vue";
