@@ -112,7 +112,6 @@ loginError.value = null;
 
 const handleLogin = async () => {
   try {
-    // Exemple d'appel API pour authentifier l'utilisateur
     const response = await fetch('http://localhost:3000/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -125,10 +124,8 @@ const handleLogin = async () => {
 
     const data = await response.json();
 
-    // Stocker les infos utilisateur et token dans le store
     authStore.setAuth(data.user, data.token);
 
-    // Rediriger l'utilisateur
     router.push('/');
   } catch (error) {
     loginError.value = (error as Error).message;
@@ -193,5 +190,4 @@ const handleSignup = async () => {
 </script>
 
 <style scoped>
-/* Some custom styling if needed */
 </style>

@@ -8,7 +8,6 @@
         :key="category.id"
         class="slider-item"
       >
-        <!-- Affichage du contenu de la catégorie -->
         <div class="rectangle">
           <img :src="`/assets/${category.image}`" :alt="category.name" class="rectangle-image" />
           <p class="rectangle-title">{{ category.name }}</p>
@@ -21,15 +20,14 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import categoriesData from '@/data/tags.json'; // Assurez-vous que le chemin est correct
+import categoriesData from '@/data/tags.json'; 
 
 const categories = ref(categoriesData);
-const numVisible = 5; // Nombre d'éléments visibles
+const numVisible = 5; 
 const index = ref(0);
 
 const maxIndex = categories.value.length - numVisible;
 
-// Catégories visibles calculées dynamiquement
 const visibleCategories = computed(() => {
   return categories.value.slice(index.value, index.value + numVisible);
 });

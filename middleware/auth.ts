@@ -8,10 +8,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
     const token = useStore.token; 
     const router = useRouter();
 
-    // if (!useStore.token) {
-    //   return router.push('/');
-    // }
-
     if (token && to.name === 'auth') {
       console.log('Utilisateur déjà authentifié, redirection...');
       return router.push('/');

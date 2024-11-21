@@ -1,4 +1,3 @@
-// plugins/api.ts
 import { useAuthStore } from "@/stores/auth";
 export default defineNuxtPlugin(() => {
   const api = $fetch.create({

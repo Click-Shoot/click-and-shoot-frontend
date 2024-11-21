@@ -4,7 +4,6 @@ export const useAuthStore = defineStore('auth', () => {
   const token = ref<string | null>(null);
   const user = ref<any | null>(null);
 
-  // Charger l'auth depuis les cookies
   const loadAuthFromCookies = () => {
     const tokenCookie = useCookie('authToken');
     const userCookie = useCookie('authUser');
@@ -17,7 +16,6 @@ export const useAuthStore = defineStore('auth', () => {
     }
   };
 
-  // Définir l'auth dans les cookies et l'état
   const setAuth = (userData: { firstName: string; lastName: string }, authToken: string) => {
     const tokenCookie = useCookie('authToken');
     const userCookie = useCookie('authUser');
@@ -30,7 +28,6 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = userData;
   };
 
-  // Déconnexion
   const clearAuth = () => {
     const tokenCookie = useCookie('authToken');
     const userCookie = useCookie('authUser');
